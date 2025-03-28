@@ -1,20 +1,34 @@
 <template>
-  <div class="text-white d-flex align-items-center justify-content-center flex-column" style="height: 100vh;">
+  <div class="text-white d-flex align-items-center justify-content-center flex-column" 
+       style="height: 100vh;" 
+       v-if="!showImage">
     <h1 class="fw-bold text-danger">I'm Chinese</h1>
-    <button class="btn btn-success mt-3" @click="doSomething">Pay Jason Wongstein some money</button>
+    <Button @show-image="showImage=true" /> <!-- when we get show-image event, set showImage to true-->
   </div>
+
+  <div class="fullscreen-image" v-else @click="showImage = false"></div>
 </template>
 
 <script setup>
-import bg from '@/assets/background.jpg'
+import { ref } from 'vue'; // Vue composition API
+import bg from '@/assets/background.jpg';
+import Button from './components/button.vue';
 
-function doSomething() {
-  alert("I think I may be a bit gay");
-}
+const showImage = ref(false); // set showImage to false
 </script>
 
 <style scoped>
-/* nothing here */
+.fullscreen-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('@/assets/maxresdefault.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 9999;
+}
 </style>
 
 <style>
