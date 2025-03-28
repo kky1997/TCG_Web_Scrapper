@@ -11,6 +11,9 @@ POC for TCG web scrapper
      - Docker: we love docker <3, can't live without containerised apps anymore
      - Node.js 20: JS runtime env, very conveniently abstracted by Docker
 
+     NOT STARTED YET
+     - express.js for backend maybe (?)
+
 # Set up instructions
 
     Docker has abstracted all the boostrapping and I have already initilised the node for package.json.
