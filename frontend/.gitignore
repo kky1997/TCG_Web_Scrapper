@@ -1,0 +1,8 @@
+
+# Editor directories and files
+.vscode/*
+
+# Node package tracking files
+package-lock.js
+package.js
+
