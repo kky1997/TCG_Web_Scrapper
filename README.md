@@ -13,6 +13,7 @@ POC for TCG web scrapper
 
      NOT STARTED YET
      - express.js for backend maybe (?)
+     - Webscrapper seperate, python + selenium(?)
 
 # Set up instructions
 
