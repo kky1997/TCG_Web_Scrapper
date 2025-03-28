@@ -8,7 +8,7 @@ POC for TCG web scrapper
      - Vue 3: frontend framework
      - Vite: frontend build tool for dev server
      - Boostrap 5: CSS framework
-     - Docker: we love docker <3, can't live without containerised apps anymore
+     - Docker: containerize the fucking application
      - Node.js 20: JS runtime env, very conveniently abstracted by Docker
 
      NOT STARTED YET
