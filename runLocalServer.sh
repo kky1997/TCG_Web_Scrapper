@@ -6,4 +6,4 @@ docker run --rm -it \
   -w /app \
   -p 5173:5173 \
   node:20 \
-  bash -c "npm install && npm run dev -- --host"
+  bash -c "npm install && exec npm run dev -- --host"
