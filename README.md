@@ -10,9 +10,9 @@ POC for TCG web scrapper
      - Boostrap 5: CSS framework
      - Docker: containerize the application
      - Node.js 20: JS runtime env, very conveniently abstracted by Docker
+     - Express.js: JS framework for backend server with easy middleware and routing
 
      NOT STARTED YET
-     - express.js for backend maybe (?)
      - Webscrapper seperate, python + selenium(?)
 
 # Set up instructions
@@ -21,9 +21,15 @@ POC for TCG web scrapper
     The Docker image will contain all the Node runtime env and the set up script will pull the image,
     as well as npm install all dependencies and run the local server.
 
-    Local server port is set to 5173.
+    Frontend (vite server) : port 5173
+    Backend (express.js server): port 3000
+    PostgresSQL DB: port 5432 (auto defined by default)
+    pgAdmin GUI... for much easier DB management: port 5050
 
     Hence, to start this application, all you need to do is run the following:
 
-        - "./runLocalServer.sh"
+        - "./runLocalBackend.sh" (starts backend express server + pgadmin GUI + postgresSQL db within 1 container)
+        - "./runLocalServer.sh" (starts frontend dev server via vite)
+
+
     
