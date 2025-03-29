@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Run Vite dev server inside Docker
+# Run Vite dev server inside Docker (if you only want to start frontend)
 docker run --rm -it \
+  --name frontend-dev \
   -v "$PWD/frontend:/app" \
   -w /app \
   -p 5173:5173 \

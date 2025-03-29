@@ -4,15 +4,16 @@
        v-if="!showImage">
     <h1 class="fw-bold text-danger">I'm Chinese</h1>
     <Button @show-image="showImage=true" /> <!-- when we get show-image event, set showImage to true-->
+    <RequestButton></RequestButton>
   </div>
-
+  
   <div class="fullscreen-image" v-else @click="showImage = false"></div>
 </template>
 
 <script setup>
 import { ref } from 'vue'; // Vue composition API
-import bg from '@/assets/background.jpg';
 import Button from './components/button.vue';
+import RequestButton from './components/RequestButton.vue';
 
 const showImage = ref(false); // set showImage to false
 </script>
