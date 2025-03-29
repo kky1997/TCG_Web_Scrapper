@@ -3,7 +3,8 @@
        style="height: 100vh;" 
        v-if="!showImage">
     <h1 class="fw-bold text-danger">I'm Chinese</h1>
-    <Button @show-image="showImage=true" /> <!-- when we get show-image event, set showImage to true-->
+    <Button type="default" @show-image="showImage=true" /> <!-- when we get show-image event, set showImage to true-->
+    <Button type="susphoto" label="something susipicous"/> <!-- label passed to app.vue for dynamic botton naming-->
     <RequestButton></RequestButton>
   </div>
   
