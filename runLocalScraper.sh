@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # Run scraper inside a temporary container
+# NOTE revisit later: currently this is really slow since puppeteer is quite large. I think it is caching the chrome install though....
 docker run --rm -it \
   --name scraper-dev \
   -v "$PWD/scraper:/app" \
   -w /app \
-  node:20 \
-  bash -c "npm install && node index.js"
+  ghcr.io/puppeteer/puppeteer:latest \
+  bash -c "npm install && npx puppeteer browsers install chrome && node index.js"
