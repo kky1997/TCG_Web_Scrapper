@@ -31,5 +31,17 @@ POC for TCG web scrapper
         - "./runLocalBackend.sh" (starts backend express server + pgadmin GUI + postgresSQL db within 1 container)
         - "./runLocalServer.sh" (starts frontend dev server via vite)
 
+# Notes
+
+    Have been manually creating package.json files with my dependencies and running something like :
+
+        docker run --rm -it -v "$PWD/scraper:/app" -w /app node:20 bash -c "npm init -y && npm install puppeteer"
+    
+    the above initilises the node.js directory, creating the package-lock.json
+
+    Additionally, for the frontend script (runLocalServer.sh), i'm creating a container dynamically from the node:20 image (pulled).
+    This container is deleted when stopped, so there is no seperate image for the frontend.
+
+    The backend does build a custom image (locally), which the container is based off each time. This is built with the provided docker-compose.yml
 
     
