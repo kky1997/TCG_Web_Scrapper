@@ -13,9 +13,11 @@ import puppeteer from 'puppeteer';
     const headlines = await page.$$eval('.titleline > a', links =>
       links.map(link => link.textContent)
     );
+
+    console.log("is array: " + Array.isArray(headlines));
   
     console.log('Headlines from ycombinator news syndication server:');
-    console.log(headlines.slice(0, 5)); // just print first 5
+    console.log(headlines.slice(0, 7)); // just print first 7
   
     await browser.close();
   })();
