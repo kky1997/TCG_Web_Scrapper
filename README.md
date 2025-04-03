@@ -11,9 +11,7 @@ POC for TCG web scrapper
      - Docker: containerize the application
      - Node.js 20: JS runtime env, very conveniently abstracted by Docker
      - Express.js: JS framework for backend server with easy middleware and routing
-
-     NOT STARTED YET
-     - Webscrapper seperate, python + selenium(?)
+     - Puppeteer + chrome headless browser for web scraping
 
 # Set up instructions
 
