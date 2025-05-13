@@ -5,9 +5,10 @@
       <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
           <h2 class="text-center mb-4">Sign In</h2>
-  
+          
+          <!--Bind event handler, .prevent to stop  browser reload-->
           <form @submit.prevent="handleSubmit">
-            <!-- Username/Email -->
+            <!-- Username/Email (is-invalid is bootstrap css class)-->
             <div class="form-group mb-3 position-relative">
               <input
                 type="text"
@@ -19,7 +20,7 @@
               <div v-if="showError && !username" class="invalid-feedback">Required field</div>
             </div>
   
-            <!-- Password -->
+            <!-- Password (is-invalid is bootstrap css class)-->
             <div class="form-group mb-3 position-relative">
               <input
                 type="password"
@@ -38,21 +39,21 @@
               <a href="#" class="small">Forgot password?</a>
             </div>
   
-<!-- OAuth Buttons -->
-<div class="row g-2 mb-3">
-  <div class="col-12 col-md-6">
-    <button class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2">
-      <img src="/google-icon.svg" alt="Google" height="20" />
-      <span>Google</span>
-    </button>
-  </div>
-  <div class="col-12 col-md-6">
-    <button class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2">
-      <img src="/apple-icon.svg" alt="Apple" height="20" />
-      <span> Apple</span>
-    </button>
-  </div>
-</div>
+            <!-- OAuth Buttons -->
+            <div class="row g-2 mb-3">
+              <div class="col-12 col-md-6">
+                <button class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2">
+                  <img src="/google-icon.svg" alt="Google" height="20" />
+                  <span>Google</span>
+                </button>
+              </div>
+              <div class="col-12 col-md-6">
+                <button class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2">
+                  <img src="/apple-icon.svg" alt="Apple" height="20" />
+                  <span> Apple</span>
+                </button>
+              </div>
+            </div>
   
             <!-- Link to Sign Up -->
             <p class="text-center small">
@@ -68,6 +69,7 @@
   <script>
   import Navbar from '@/components/Navbar.vue'
   
+  // Export view for router
   export default {
     name: 'SignInPage',
     components: { Navbar },
@@ -79,18 +81,21 @@
       }
     },
     methods: {
+      // Event handler for form submission
       handleSubmit() {
-        this.showError = true
-  
-        if (this.username && this.password) {
+        if(!this.username || !this.password) {
+          this.showError = true  
+        }
+        else {
           // Send to backend or redirect
-          console.log('✅ Submit credentials:', this.username)
+          console.log('Submit credentials:', this.username)
         }
       }
     }
   }
   </script>
   
+  <!-- Scoped style for just signInPage view-->
   <style scoped>
   .is-invalid {
     border-color: #dc3545;
