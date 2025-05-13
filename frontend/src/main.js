@@ -6,6 +6,4 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import './style.css'
 
-createApp(App)
-  .use(router)              // ✅ Register the router here
-  .mount('#app')
+createApp(App).use(router).mount('#app') // mount the vue app here and then run this script in the index.html

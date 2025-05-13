@@ -12,6 +12,7 @@
   import FeaturesSection from '@/components/FeaturesSection.vue'
   import PricingSection from '@/components/PricingSection.vue'
   
+  // Export for Router
   export default {
     name: 'HomePage',
     components: {

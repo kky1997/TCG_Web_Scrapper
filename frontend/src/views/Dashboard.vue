@@ -11,6 +11,7 @@
   import TrackedItems from '../components/TrackedItems.vue'
   import ActivityLog from '../components/ActivityLog.vue'
   
+  // Export for router
   export default {
     name: 'Dashboard',
     components: {

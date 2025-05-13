@@ -40,6 +40,7 @@
   </nav>
 </template>
 
+ <!--NOTE: maybe change this to options API instead of composition API in the future-->
 <script>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
