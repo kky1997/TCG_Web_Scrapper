@@ -1,21 +1,21 @@
 <template>
-    <div class="row">
-      <div
-        v-for="(item, index) in normalizedItems"
-        :key="index"
-        class="col-md-4 mb-4"
-      >
-        <TrackerCard v-if="item" v-bind="item" />
-        <div v-else class="border rounded p-5 text-muted text-center">
-          Empty Slot
-        </div>
+  <div class="row">
+    <div
+      v-for="(item, index) in normalizedItems"
+      :key="index"
+      class="col-md-4 mb-4"
+    >
+      <TrackerCard v-if="item" v-bind="item" />
+      <div v-else class="border rounded p-5 text-muted text-center">
+        Empty Slot
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
-  <script>
+<script>
   import TrackerCard from './TrackerCard.vue'
-  
+  // NOTE: Kai come back to this
   export default {
     name: 'TrackedItems',
     components: {
@@ -37,5 +37,5 @@
       }
     }
   }
-  </script>
+</script>
   

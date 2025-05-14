@@ -22,7 +22,7 @@
   
           <!-- Right: Carousel -->
           <div class="col-lg-6 d-flex flex-column justify-content-start">
-             <!-- ✅ Fade + AutoPlay via attributes -->
+             <!-- Fade + AutoPlay via attributes -->
             <div
                 id="productCarousel"
                 class="carousel slide carousel-container w-100"
@@ -82,7 +82,7 @@
   </section>
 </template>
   
-  <script>
+<script>
   import img from '@/assets/prismatic etb NB.png'
   
   export default {
@@ -93,10 +93,10 @@
       }
     }
   }
-  </script>
+</script>
 
 
-  <style scoped>
+<style scoped>
   .container-xl {
     max-width: 1600px;
     margin: 0 auto;
@@ -159,19 +159,19 @@
   justify-content: center;
   margin: 0;
   padding: 0;
-}
-/* Carousel Indicator Styling */
-.carousel-indicators li {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #333;
-  margin: 0 4px;
-}
-/* Carousel indicator hover Colour change */
-.carousel-indicators .active {
-  background-color: #000;
-}
-  </style>
+  }
+  /* Carousel Indicator Styling */
+  .carousel-indicators li {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #333;
+    margin: 0 4px;
+  }
+  /* Carousel indicator hover Colour change */
+  .carousel-indicators .active {
+    background-color: #000;
+  }
+</style>
 
   

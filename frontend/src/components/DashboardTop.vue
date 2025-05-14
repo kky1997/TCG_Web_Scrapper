@@ -39,27 +39,27 @@
 </template>
 
 <script>
-export default {
-  name: 'DashboardTop',
-  props: {
-    totalTracked: Number,
-    capacity: Number
-  },
-  data() {
-    return {
-      searchQuery: ''
-    };
-  },
-  methods: {
-    emitAddTracker() {
-      this.$emit('add-tracker');
+  export default {
+    name: 'DashboardTop',
+    props: {
+      totalTracked: Number,
+      capacity: Number
     },
-    searchAndAdd() {
-      if (this.searchQuery.trim()) {
-        this.$emit('search-item', this.searchQuery.trim());
-        this.searchQuery = '';
+    data() {
+      return {
+        searchQuery: ''
+      };
+    },
+    methods: {
+      emitAddTracker() {
+        this.$emit('add-tracker');
+      },
+      searchAndAdd() {
+        if (this.searchQuery.trim()) {
+          this.$emit('search-item', this.searchQuery.trim());
+          this.searchQuery = '';
+        }
       }
     }
-  }
-};
+  };
 </script>
