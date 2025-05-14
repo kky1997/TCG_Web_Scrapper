@@ -7,6 +7,7 @@ POC for TCG web scrapper
     Tech stack:
      - Vue 3: frontend framework
      - Vite: frontend build tool for dev server
+     - Vue-Router: set up routing for multiple views
      - Boostrap 5: CSS framework
      - Docker: containerize the application
      - Node.js 20: JS runtime env, very conveniently abstracted by Docker
