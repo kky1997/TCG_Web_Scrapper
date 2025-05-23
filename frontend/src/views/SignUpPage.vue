@@ -86,68 +86,85 @@
     </div>
   </template>
   
-  <script>
-  // Export for router
-  export default {
-    name: 'SignUpPage',
-    data() {
-      return {
-        email: '',
-        username: '',
-        password: '',
-        emailTouched: false,
-        usernameTouched: false,
-        passwordTouched: false,
-        showTooltip: false
-      };
+<script>
+// methods from firebase auth library
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { updateProfile } from 'firebase/auth'; 
+import { sendEmailVerification } from 'firebase/auth';
+
+// import from firebase.js at root
+import { auth } from '@/firebase';
+
+// Export for router
+export default {
+  name: 'SignUpPage',
+  data() {
+    return {
+      email: '',
+      username: '',
+      password: '',
+      emailTouched: false,
+      usernameTouched: false,
+      passwordTouched: false,
+      showTooltip: false
+    };
+  },
+  computed: {
+    isValidPassword() {
+      return (
+        this.password.length >= 6 &&
+        /[A-Z]/.test(this.password) &&
+        /[\d\W]/.test(this.password)
+      );
     },
-    computed: {
-      isValidPassword() {
-        return (
-          this.password.length >= 6 &&
-          /[A-Z]/.test(this.password) &&
-          /[\d\W]/.test(this.password)
-        );
-      },
-      formValid() {
-        return (
-          /\S+@\S+\.\S+/.test(this.email) &&
-          this.username.length >= 3 &&
-          this.isValidPassword
-        );
-      }
-    },
-    methods: {
-      submitForm() {
-        if (this.formValid) {
-          this.$router.push('/auth-pending'); // automatically inject vue router and call this.$router
+    formValid() {
+      return (
+        /\S+@\S+\.\S+/.test(this.email) &&
+        this.username.length >= 3 &&
+        this.isValidPassword
+      );
+    }
+  },
+  methods: {
+    async submitForm() {
+      if (this.formValid) {
+        try {
+          const userCredentials = await createUserWithEmailAndPassword(auth, this.email, this.password);
+          await updateProfile(userCredentials.user, { displayName: this.username });
+          await sendEmailVerification(userCredentials.user);
+          console.log('User created: ', userCredentials.user);
+          this.$router.push('/SignUpConfirmation');
+        } catch (e) {
+          console.log('Signup failed', e.message);
+          alert('Signup failed: ' + e.message);
         }
       }
     }
-  };
-  </script>
+  }
+};
+</script>
+
+<!-- Scoped to this current view/component-->
+<style scoped>
+  .is-invalid {
+    border-color: #dc3545;
+  }
+
+  .w-48 {
+    width: 48%;
+  }
   
-  <!-- Scoped to this current view/component-->
-  <style scoped>
-    .is-invalid {
-      border-color: #dc3545;
-    }
+  /* Make sure to target .btn too */
+  .create-btn {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  }
 
-    .w-48 {
-      width: 48%;
-    }
-    
-    /* Make sure to target .btn too */
-    .create-btn {
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .create-btn:hover:not(:disabled) {
-      background-color: #0a58ca !important;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-    }
-  </style>
+  .create-btn:hover:not(:disabled) {
+    background-color: #0a58ca !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+</style>
   
   
