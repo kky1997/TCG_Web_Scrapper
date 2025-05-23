@@ -1,74 +1,76 @@
 <template>
-    <div>
-      <Navbar />
-  
-      <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
-          <h2 class="text-center mb-4">Sign In</h2>
+  <div>
+    <Navbar />
+
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+      <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
+        <h2 class="text-center mb-4">Sign In</h2>
+        
+        <!--Bind event handler, .prevent to stop  browser reload-->
+        <form @submit.prevent="handleSubmit">
+          <!-- Username/Email (is-invalid is bootstrap css class)-->
+          <div class="form-group mb-3 position-relative">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Username / Email"
+              v-model="username"
+              :class="{ 'is-invalid': showError && !username }"
+            />
+            <div v-if="showError && !username" class="invalid-feedback">Required field</div>
+          </div>
+
+          <!-- Password (is-invalid is bootstrap css class)-->
+          <div class="form-group mb-3 position-relative">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              v-model="password"
+              :class="{ 'is-invalid': showError && !password }"
+            />
+            <div v-if="showError && !password" class="invalid-feedback">Required field</div>
+          </div>
+
+          <!-- Sign In Button -->
+          <button class="btn btn-primary w-100 mb-2">Sign In</button>
           
-          <!--Bind event handler, .prevent to stop  browser reload-->
-          <form @submit.prevent="handleSubmit">
-            <!-- Username/Email (is-invalid is bootstrap css class)-->
-            <div class="form-group mb-3 position-relative">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Username / Email"
-                v-model="username"
-                :class="{ 'is-invalid': showError && !username }"
-              />
-              <div v-if="showError && !username" class="invalid-feedback">Required field</div>
+          <div class="text-end mb-3">
+            <a href="#" class="small">Forgot password?</a>
+          </div>
+
+          <!-- OAuth Buttons -->
+          <div class="row g-2 mb-3">
+            <div class="col-12 col-md-6">
+              <button class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2">
+                <img src="/google-icon.svg" alt="Google" height="20" />
+                <span>Google</span>
+              </button>
             </div>
-  
-            <!-- Password (is-invalid is bootstrap css class)-->
-            <div class="form-group mb-3 position-relative">
-              <input
-                type="password"
-                class="form-control"
-                placeholder="Password"
-                v-model="password"
-                :class="{ 'is-invalid': showError && !password }"
-              />
-              <div v-if="showError && !password" class="invalid-feedback">Required field</div>
+            <div class="col-12 col-md-6">
+              <button class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2">
+                <img src="/apple-icon.svg" alt="Apple" height="20" />
+                <span> Apple</span>
+              </button>
             </div>
-  
-            <!-- Sign In Button -->
-            <button class="btn btn-primary w-100 mb-2">Sign In</button>
-            
-            <div class="text-end mb-3">
-              <a href="#" class="small">Forgot password?</a>
-            </div>
-  
-            <!-- OAuth Buttons -->
-            <div class="row g-2 mb-3">
-              <div class="col-12 col-md-6">
-                <button class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2">
-                  <img src="/google-icon.svg" alt="Google" height="20" />
-                  <span>Google</span>
-                </button>
-              </div>
-              <div class="col-12 col-md-6">
-                <button class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2">
-                  <img src="/apple-icon.svg" alt="Apple" height="20" />
-                  <span> Apple</span>
-                </button>
-              </div>
-            </div>
-  
-            <!-- Link to Sign Up -->
-            <p class="text-center small">
-              Don’t have an account yet?
-              <a href="/signup">Sign up</a>
-            </p>
-          </form>
-        </div>
+          </div>
+
+          <!-- Link to Sign Up -->
+          <p class="text-center small">
+            Don’t have an account yet?
+            <a href="/signup">Sign up</a>
+          </p>
+        </form>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import Navbar from '@/components/Navbar.vue'
-  
+  </div>
+</template>
+
+<script>
+  import Navbar from '@/components/Navbar.vue';
+  import { signInWithEmailAndPassword } from 'firebase/auth';
+  import { auth } from '@/firebase';
+
   // Export view for router
   export default {
     name: 'SignInPage',
@@ -82,21 +84,27 @@
     },
     methods: {
       // Event handler for form submission
-      handleSubmit() {
+      async handleSubmit() {
         if(!this.username || !this.password) {
           this.showError = true  
         }
         else {
-          // Send to backend or redirect
-          console.log('Submit credentials:', this.username)
+          try {
+            const userCredential = await signInWithEmailAndPassword(auth, this.username, this.password); // using firebase auth method
+            console.log('Signed in:', userCredential.user);
+            this.$router.push('/'); // KAI: back to homepage  for now?
+          } catch (e) {
+            console.error('Sign in error:', e.message);
+            alert('Sign in failed: ' + e.message);
+          }
         }
       }
     }
   }
-  </script>
-  
-  <!-- Scoped style for just signInPage view-->
-  <style scoped>
+</script>
+
+<!-- Scoped style for just signInPage view-->
+<style scoped>
   .is-invalid {
     border-color: #dc3545;
     padding-right: 2.25rem;
@@ -105,5 +113,5 @@
     background-position: right 0.75rem center;
     background-size: 1rem;
   }
-  </style>
+</style>
   
