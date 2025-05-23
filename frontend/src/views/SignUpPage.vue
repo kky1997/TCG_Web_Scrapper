@@ -129,11 +129,15 @@ export default {
     async submitForm() {
       if (this.formValid) {
         try {
+
+          // create user, update user object to firebase with username, send verification
           const userCredentials = await createUserWithEmailAndPassword(auth, this.email, this.password);
           await updateProfile(userCredentials.user, { displayName: this.username });
           await sendEmailVerification(userCredentials.user);
           console.log('User created: ', userCredentials.user);
-          this.$router.push('/SignUpConfirmation');
+
+          // route to confirmation page
+          this.$router.push('/signUpConfirmation'); // KAI: undecided if this should be sync of async, come back later
         } catch (e) {
           console.log('Signup failed', e.message);
           alert('Signup failed: ' + e.message);
