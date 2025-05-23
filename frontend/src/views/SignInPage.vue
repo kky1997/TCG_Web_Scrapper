@@ -8,16 +8,16 @@
         
         <!--Bind event handler, .prevent to stop  browser reload-->
         <form @submit.prevent="handleSubmit">
-          <!-- Username/Email (is-invalid is bootstrap css class)-->
+          <!-- Email (is-invalid is bootstrap css class)-->
           <div class="form-group mb-3 position-relative">
             <input
               type="text"
               class="form-control"
-              placeholder="Username / Email"
-              v-model="username"
-              :class="{ 'is-invalid': showError && !username }"
+              placeholder="Email"
+              v-model="email"
+              :class="{ 'is-invalid': showError && !email }"
             />
-            <div v-if="showError && !username" class="invalid-feedback">Required field</div>
+            <div v-if="showError && !email" class="invalid-feedback">Required field</div>
           </div>
 
           <!-- Password (is-invalid is bootstrap css class)-->
@@ -77,7 +77,7 @@
     components: { Navbar },
     data() {
       return {
-        username: '',
+        email: '',
         password: '',
         showError: false
       }
@@ -85,12 +85,12 @@
     methods: {
       // Event handler for form submission
       async handleSubmit() {
-        if(!this.username || !this.password) {
+        if(!this.email || !this.password) {
           this.showError = true  
         }
         else {
           try {
-            const userCredential = await signInWithEmailAndPassword(auth, this.username, this.password); // using firebase auth method
+            const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password); // using firebase auth method
             console.log('Signed in:', userCredential.user);
             this.$router.push('/'); // KAI: back to homepage  for now?
           } catch (e) {
