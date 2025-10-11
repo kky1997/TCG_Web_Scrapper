@@ -42,7 +42,10 @@
           <!-- OAuth Buttons -->
           <div class="row g-2 mb-3">
             <div class="col-12 col-md-6">
-              <button class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2">
+              <button
+                type="button"
+                class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2"
+                @click="handleGoogleSignIn">
                 <img src="/google-icon.svg" alt="Google" height="20" />
                 <span>Google</span>
               </button>
@@ -68,8 +71,8 @@
 
 <script>
   import Navbar from '@/components/Navbar.vue';
-  import { signInWithEmailAndPassword } from 'firebase/auth';
-  import { auth } from '@/firebase';
+  import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+  import { auth, provider } from '@/firebase';
 
   // Export view for router
   export default {
@@ -97,6 +100,28 @@
             console.error('Sign in error:', e.message);
             alert('Sign in failed: ' + e.message);
           }
+        }
+      },
+      handleGoogleSignIn() {
+        try{
+          signInWithPopup(auth, provider). then((result) => {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const user = result.user;
+            console.log('Google sign in successful:', user);
+            this.$router.push('/'); // KAI: back to homepage for now?
+          }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.customData.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            console.error('Google sign in error:', errorMessage);
+            alert('Google sign in failed: ' + errorMessage + " code: " + errorCode + 
+                    " email: " + email + " credential: " + credential);
+          });
+        } catch(e){
+          console.error('Google sign in error:', e.message);
+          alert('Google sign in failed: ' + e.message);
         }
       }
     }
