@@ -41,19 +41,13 @@
 
           <!-- OAuth Buttons -->
           <div class="row g-2 mb-3">
-            <div class="col-12 col-md-6">
+            <div class="col-12">
               <button
                 type="button"
                 class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2"
                 @click="handleGoogleSignIn">
                 <img src="/google-icon.svg" alt="Google" height="20" />
                 <span>Google</span>
-              </button>
-            </div>
-            <div class="col-12 col-md-6">
-              <button class="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2">
-                <img src="/apple-icon.svg" alt="Apple" height="20" />
-                <span> Apple</span>
               </button>
             </div>
           </div>
