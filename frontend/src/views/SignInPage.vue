@@ -55,7 +55,7 @@
           <!-- Link to Sign Up -->
           <p class="text-center small">
             Don’t have an account yet?
-            <a href="/signup">Sign up</a>
+            <router-link to="/signup">Sign up</router-link>
           </p>
         </form>
       </div>
