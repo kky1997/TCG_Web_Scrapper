@@ -87,65 +87,65 @@
   </template>
   
 <script>
-// methods from firebase auth library
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { updateProfile } from 'firebase/auth'; 
-import { sendEmailVerification } from 'firebase/auth';
+  // methods from firebase auth library
+  import { createUserWithEmailAndPassword } from 'firebase/auth';
+  import { updateProfile } from 'firebase/auth'; 
+  import { sendEmailVerification } from 'firebase/auth';
 
-// import from firebase.js at root
-import { auth } from '@/firebase';
+  // import from firebase.js at root
+  import { auth } from '@/firebase';
 
-// Export for router
-export default {
-  name: 'SignUpPage',
-  data() {
-    return {
-      email: '',
-      username: '',
-      password: '',
-      emailTouched: false,
-      usernameTouched: false,
-      passwordTouched: false,
-      showTooltip: false
-    };
-  },
-  computed: {
-    isValidPassword() {
-      return (
-        this.password.length >= 6 &&
-        /[A-Z]/.test(this.password) &&
-        /[\d\W]/.test(this.password)
-      );
+  // Export for router
+  export default {
+    name: 'SignUpPage',
+    data() {
+      return {
+        email: '',
+        username: '',
+        password: '',
+        emailTouched: false,
+        usernameTouched: false,
+        passwordTouched: false,
+        showTooltip: false
+      };
     },
-    formValid() {
-      return (
-        /\S+@\S+\.\S+/.test(this.email) &&
-        this.username.length >= 3 &&
-        this.isValidPassword
-      );
-    }
-  },
-  methods: {
-    async submitForm() {
-      if (this.formValid) {
-        try {
+    computed: {
+      isValidPassword() {
+        return (
+          this.password.length >= 6 &&
+          /[A-Z]/.test(this.password) &&
+          /[\d\W]/.test(this.password)
+        );
+      },
+      formValid() {
+        return (
+          /\S+@\S+\.\S+/.test(this.email) &&
+          this.username.length >= 3 &&
+          this.isValidPassword
+        );
+      }
+    },
+    methods: {
+      async submitForm() {
+        if (this.formValid) {
+          try {
 
-          // create user, update user object to firebase with username, send verification
-          const userCredentials = await createUserWithEmailAndPassword(auth, this.email, this.password);
-          await updateProfile(userCredentials.user, { displayName: this.username });
-          await sendEmailVerification(userCredentials.user);
-          console.log('User created: ', userCredentials.user);
+            // create user, update user object to firebase with username, send verification
+            const userCredentials = await createUserWithEmailAndPassword(auth, this.email, this.password);
+            await updateProfile(userCredentials.user, { displayName: this.username });
+            await sendEmailVerification(userCredentials.user);
+            console.log('User created: ', userCredentials.user);
 
-          // route to confirmation page
-          this.$router.push('/signUpConfirmation'); // KAI: undecided if this should be sync of async, come back later
-        } catch (e) {
-          console.log('Signup failed', e.message);
-          alert('Signup failed: ' + e.message);
+            // route to confirmation page
+            this.$router.push('/signUpConfirmation'); // KAI: undecided if this should be sync of async, come back later
+          } catch (e) {
+            console.log('Signup failed', e.message);
+            alert('Signup failed: ' + e.message);
+          }
         }
       }
     }
-  }
-};
+  };
 </script>
 
 <!-- Scoped to this current view/component-->
